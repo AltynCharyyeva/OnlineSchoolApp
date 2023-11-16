@@ -1,0 +1,78 @@
+{% extends 'mainapp/header.html' %} 
+{% block content %}
+{% load static %}
+
+<style>
+    /* Center the quote */
+    .center-container {
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    /* Style for the quote */
+    blockquote {
+        position: relative;
+        margin-top: 30px;
+    }
+
+    .carousel-item {
+        text-align: center;
+    }
+
+    .carousel-item img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 15px; /* Adjust the value as needed */
+    }
+
+    .quote-overlay {
+        position: absolute;
+        top: 10px; /* Adjust the top position as needed */
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(255, 255, 255, 0.8); /* Adjust the background color and transparency as needed */
+        padding: 10px;
+        border-radius: 10px; /* Adjust the value as needed */
+    }
+</style>
+
+<div class="center-container">
+    <blockquote>
+        <p class="quote-overlay">FROM ZERO TO HERO</p>
+    </blockquote>
+</div>
+
+<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="{% static 'img/web_dev.jpg' %}" class="d-block w-100" alt="Web Development">
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'img/java.jpeg' %}" class="d-block w-100" alt="Java Programming">
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'img/python.jpg' %}" class="d-block w-100" alt="Python Programming">
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'img/c_plus_plus.jpg' %}" class="d-block w-100" alt="C++ Programming">
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'img/dev_ops.jpeg' %}" class="d-block w-100" alt="DevOps">
+        </div>
+    </div>
+    
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+{% endblock %}

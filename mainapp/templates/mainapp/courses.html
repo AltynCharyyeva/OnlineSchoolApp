@@ -1,0 +1,16 @@
+{% extends 'mainapp/header.html' %} 
+{% block content %}
+
+
+<h1>Courses</h1>
+
+  {% for course in courses %}
+  <div class="row">
+    <p>Course name: {{ course.course_name }}</p>
+    <p>Start time: {{ course.start_time }}</p>
+    <p><a href="course_detail/{{ course.id }}">Detalii</a></p>
+    <p></p>
+  </div>
+  {% endfor %}
+
+{% endblock %}

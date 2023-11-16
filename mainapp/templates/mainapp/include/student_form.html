@@ -1,0 +1,71 @@
+<div class="container">
+        <form class="pt-3" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+            
+        </form>
+</div> 
+
+
+
+
+
+
+
+<!-- <div class="row">
+  <div class="col-md-3">
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input type="text" class="form-control" id="name" name="name" />
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="mb-3">
+      <label for="surname" class="form-label">Surname</label>
+      <input type="text" class="form-control" id="surname" name="surname" />
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-3">
+    <div class="mb-3">
+      <label for="address" class="form-label">Address</label>
+      <input type="text" class="form-control" id="address" name="address" />
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input type="text" class="form-control" id="email" name="email" />
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="mb-3">
+      <label for="tel" class="form-label">Telephone</label>
+      <input type="text" class="form-control" id="tel" name="tel" />
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-3">
+    <div class="mb-3">
+      <label for="course_name" class="form-label">Course Name</label>
+      <select class="form-control" id="course_name" name="course_name">
+        <option value="" disabled selected>Select a course</option>
+        <option value="python">Python Programming</option>
+        <option value="java">Java Programming</option>
+        <option value="c++">C++ Programming</option>
+        <option value="web">Web Development</option>
+        <option value="testing">Software Testing</option>
+        <option value="graphic_design">Graphic Design</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="col-md-8 d-flex align-items-end justify-content-end">
+

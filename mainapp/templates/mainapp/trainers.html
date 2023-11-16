@@ -1,0 +1,15 @@
+{% extends 'mainapp/header.html' %} 
+{% block content %}
+
+<h1>Trainers</h1>
+
+  {% for trainer in trainers %}
+  <div class="row">
+    <p>{{ trainer.name }}  {{trainer.surname}}</p>
+    <p>{{trainer.profession}}</p>
+    <p>{{trainer.about}}</p>
+    <p></p>
+  </div>
+  {% endfor %}
+
+  {% endblock %}

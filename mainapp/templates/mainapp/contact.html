@@ -1,0 +1,49 @@
+{% extends 'mainapp/header.html' %}
+
+ {% block content %}
+<h2>General Information</h2>
+{% load static %}
+<style>
+    .info-container{
+        background-color: #6b9ac4;
+        border-radius: 80px;
+        padding: 80px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        margin: 50px 0; 
+
+    }  
+</style>
+<div class="info-container">
+    
+    {% for info in school_info %}
+    <div class="row">
+        <div class="col-1">
+            <img src="{% static 'img/email.png' %}" width="45px">
+        </div>
+        <div class="col-11">
+            {{ info.email }}
+        </div>
+    </div>  
+    <div class="row">
+        <div class="col-1">
+            <img src="{% static 'img/address.png' %}" width="45px">
+        </div>
+        <div class="col-11">
+            {{ info.address }}
+        </div>
+    </div> 
+    <div class="row">
+        <div class="col-1">
+            <img src="{% static 'img/tel.png' %}" width="45px">
+        </div>
+        <div class="col-11">
+            {{ info.tel }}
+        </div>
+    </div> 
+    {% endfor %}
+  
+
+</div>
+
+ {% endblock %}
+
