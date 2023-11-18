@@ -1,15 +1,30 @@
 {% extends 'mainapp/header.html' %} 
 {% block content %}
 
+<style>
+  .card-name {
+    color: #0b0b0b; /* Blue color for name */
+  }
+
+  .card-profession {
+    color: #1410e0; /* Green color for profession */
+  }
+
+  .card-about {
+    color: #5c5554; /* Red color for about */
+  }
+</style>
+
 <h1>Trainers</h1>
 
-  {% for trainer in trainers %}
-  <div class="row">
-    <p>{{ trainer.name }}  {{trainer.surname}}</p>
-    <p>{{trainer.profession}}</p>
-    <p>{{trainer.about}}</p>
-    <p></p>
+{% for trainer in trainers %}
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title card-name">{{ trainer.name }} {{ trainer.surname }}</h5>
+      <p class="card-text card-profession">{{ trainer.profession }}</p>
+      <p class="card-text card-about">About: {{ trainer.about }}</p>
+    </div>
   </div>
-  {% endfor %}
+{% endfor %}
 
-  {% endblock %}
+{% endblock %}

@@ -1,27 +1,41 @@
 {% extends 'mainapp/header.html' %} 
 {% block content %}
 
-<h1 style="font-size: 36px; font-weight: bold">{{ course.course_name }}</h1>
+<style>
+  .course-details-container {
+    background-color: #1d1919; /* Grey background color */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px; /* Padding inside the container */
+    margin: 20px auto; /* Center the container horizontally */
+    max-width: 600px; /* Maximum width of the container */
+  }
 
-<div class="container">
+  .course-details-container p {
+    margin-bottom: 0; /* Remove default bottom margin for paragraphs inside the container */
+  }
+</style>
+
+<div class="course-details-container">
+  <h1 style="font-size: 36px; font-weight: bold">{{ course.course_name }}</h1>
+
   <div class="container">
-        <div class="row">
-            <div class="col-2">Cost total: </div>
-            <div class="col-2"><p>{{ course.cost }}</p></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-2">Start time: </div>
-        <div class="col-10"><p>{{ course.start_time }}</p></div>
-    </div>
-    <div class="row">
-        <div class="col-2">Orar: </div>
-        <div class="col-10"><p>{{ course.orar}}</p></div>
-    </div>
-    <div class="row">
-        <div class="col-2">Description: </div>
-        <div class="col-10"><p>{{ course.description }}</p></div>
-    </div>
+      <div class="row">
+          <div class="col-2">Cost total: </div>
+          <div class="col-10"><p>{{ course.cost }}</p></div>
+      </div>
+      <div class="row">
+          <div class="col-2">Start time: </div>
+          <div class="col-10"><p>{{ course.start_time }}</p></div>
+      </div>
+      <div class="row">
+          <div class="col-2">Orar: </div>
+          <div class="col-10"><p>{{ course.orar}}</p></div>
+      </div>
+      <div class="row">
+          <div class="col-2">Description: </div>
+          <div class="col-10"><p>{{ course.description }}</p></div>
+      </div>
+  </div>
 </div>
 
 {% endblock %}

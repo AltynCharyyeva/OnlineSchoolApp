@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import UserPassesTestMixin
 
 
 # Create your views here.
@@ -59,13 +60,22 @@ class EnrollStudent(LoginRequiredMixin, CreateView):
     template_name = 'mainapp/enroll.html'
     success_url = '/'
 
-
-    def print_auth(self):
-        print('Verify if auth: ', self.request.user.is_authenticated)
     
     def form_valid(self, form):
-        form.save()
-        return super().form_valid(form)
+        # Get the selected courses from the form data
+        selected_courses = form.cleaned_data['course']
+        
+        # Clear existing trainers for the student
+        #form.instance.trainers.clear()
+        response = super().form_valid(form)
+
+        # Iterate over selected courses and add the trainers for each course to the student
+        for course in selected_courses:
+            c = models.Course.objects.get(course_name=course.course_name)
+            form.instance.trainers.add(c.trainer)
+
+        # Call the super method to save the form and perform the default behavior
+        return response
 
 
 class Trainers(ListView):
@@ -73,18 +83,37 @@ class Trainers(ListView):
     template_name = 'mainapp/trainers.html'
     context_object_name = 'trainers'
 
+
 class Courses(ListView):
     model = models.Course
     template_name = 'mainapp/courses.html'
     context_object_name = 'courses'
 
-class Students(ListView):
+
+def access_forbidden_page(request):
+    return render(request, 'mainapp/forbidden.html')
+
+class Students(UserPassesTestMixin, ListView):
     model = models.Student
     template_name = 'mainapp/students.html'
     context_object_name = 'students'
 
+    def test_func(self):
+        return self.request.user.username.startswith('altyn')
 
-@login_required(login_url='login')
+    def handle_no_permission(self):
+        return render(
+            self.request,
+            'mainapp/forbidden.html',
+            {'redirect_url': 'forbidden'}
+        )
+
+    def get_login_url(self) -> str:
+        return ('forbidden')
+
+
+
+@login_required
 def add_contact_info(request):
     models.School_info.objects.create(
         school_name = 'ITSchool',
@@ -94,6 +123,8 @@ def add_contact_info(request):
     )
 
     return redirect('homepage')
+
+
 
 # def delete_record(request, id):
 #     instance = models.School_info.objects.get(id=id)
@@ -108,18 +139,44 @@ class Contact(ListView):
     
     
     
-class AddTrainer(CreateView):
+class AddTrainer(UserPassesTestMixin, CreateView):
     form_class = forms.TrainerForm
     template_name = 'mainapp/add_trainer.html'
     success_url = 'trainers'
     model = models.Trainer
 
+    def test_func(self):
+        return self.request.user.username.startswith('altyn')
 
-class AddCourse(CreateView):
+    def handle_no_permission(self):
+        return render(
+            self.request,
+            'mainapp/forbidden.html',
+            {'redirect_url': 'forbidden'}
+        )
+
+    def get_login_url(self) -> str:
+        return ('forbidden')
+
+
+class AddCourse(UserPassesTestMixin, CreateView):
     form_class = forms.CourseForm
     template_name = 'mainapp/add_course.html'
     success_url = 'courses'
     model = models.Course
+
+    def test_func(self):
+        return self.request.user.username.startswith('altyn')
+
+    def handle_no_permission(self):
+        return render(
+            self.request,
+            'mainapp/forbidden.html',
+            {'redirect_url': 'forbidden'}
+        )
+
+    def get_login_url(self) -> str:
+        return ('forbidden')
 
 
 class CourseDetailView(DetailView):

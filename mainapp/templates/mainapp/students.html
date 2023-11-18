@@ -1,4 +1,24 @@
 {% extends 'mainapp/header.html' %} 
 {% block content %}
 
+<h1>Students</h1>
+
+{% for student in students %}
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title">{{ student.name }} {{ student.surname }}</h5>
+      <p class="card-text">Courses:
+        {% for course in student.course.all %}
+          {{ course.course_name }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+      </p>
+      <p class="card-text">Trainers:
+        {% for trainer in student.trainers.all %}
+          {{ trainer.trainer_name }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+      </p>
+    </div>
+  </div>
+{% endfor %}
+
 {% endblock %}

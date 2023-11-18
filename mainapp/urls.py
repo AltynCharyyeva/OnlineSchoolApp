@@ -5,6 +5,7 @@ from mainapp import views
 urlpatterns = [
     path('', views.homepage, name='homepage'),
     path('login', views.login_page, name='login_page'),
+    path('logout', views.logout_page, name='logout'),
     path('add_course', views.AddCourse.as_view(), name='add_course'),
     #path('update_course/<int:id>', views.update_course, name='update_course'),
     path('course_detail/<int:id>', views.CourseDetailView.as_view(), name='course_detail'),
@@ -17,4 +18,5 @@ urlpatterns = [
     path('add-contact-info', views.add_contact_info, name='add_info'),
     #path('delete-record/<int:id>', views.delete_record, name='delete-record'),
     path('register', views.register_page, name='register_page'),
+    path('access-forbidden', views.access_forbidden_page, name='forbidden'),
 ]
