@@ -32,6 +32,9 @@ class Course(models.Model):
 
     def __str__(self) -> str:
         return f'{self.course_name}'
+    
+    class Meta:
+        db_table = 'course'
 
 
 
@@ -52,11 +55,6 @@ class Student(models.Model):
 
     def __str__(self) -> str:
         return f'Name: {self.name} Surname: {self.surname}'
-    
-# class Enrollment(models.Model):
-#     student=models.ForeignKey(Student, on_delete=models.CASCADE, blank=True, null=True)
-#     course=models.ForeignKey(Course, on_delete=models.CASCADE, blank=True, null=True)
-#     enrollment_date=models.DateField()
 
 
 class School_info(models.Model):
@@ -67,4 +65,9 @@ class School_info(models.Model):
 
     class Meta:
         db_table = 'school_info'
+
+# class Enrollment(models.Model):
+#     student=models.ForeignKey(Student, on_delete=models.CASCADE, blank=True, null=True)
+#     course=models.ForeignKey(Course, on_delete=models.CASCADE, blank=True, null=True)
+#     enrollment_date=models.DateField()
     

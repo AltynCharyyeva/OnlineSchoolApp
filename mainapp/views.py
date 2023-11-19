@@ -10,6 +10,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -24,7 +25,7 @@ def login_page(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('homepage')
+            return redirect('success')
         else:
             messages.success(request, ("There was an error logging in"))
             return redirect('login_page')
@@ -45,28 +46,28 @@ def register_page(request):
         form = forms.CustomUserForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('homepage')
+            return redirect('success')
 
     context = {'form': form}
 
     return render(request, 'mainapp/register.html', context)
 
+def success_sign_in(request):
+    return render(request, 'mainapp/success.html')
 
 
 class EnrollStudent(LoginRequiredMixin, CreateView):
     login_url = "login_page"
-    #redirect_field_name = "register"
     form_class = forms.StudentForm
     template_name = 'mainapp/enroll.html'
-    success_url = '/'
+    success_url = 'enroll_success'
 
     
     def form_valid(self, form):
         # Get the selected courses from the form data
         selected_courses = form.cleaned_data['course']
         
-        # Clear existing trainers for the student
-        #form.instance.trainers.clear()
+
         response = super().form_valid(form)
 
         # Iterate over selected courses and add the trainers for each course to the student
@@ -76,6 +77,22 @@ class EnrollStudent(LoginRequiredMixin, CreateView):
 
         # Call the super method to save the form and perform the default behavior
         return response
+
+
+def enroll_success(request):
+    return render(request, 'mainapp/enrollsuccess.html')
+
+class StudentDetailView(LoginRequiredMixin, DetailView):
+    login_url = "login_page"
+    model = models.Student
+    template_name = 'mainapp/student_detail.html'
+    context_object_name = 'student'
+    pk_url_kwarg = 'id'
+
+    def get_context_data(self, **kwargs: Any):
+        context =  super().get_context_data(**kwargs)
+        return context
+
 
 
 class Trainers(ListView):
@@ -93,10 +110,31 @@ class Courses(ListView):
 def access_forbidden_page(request):
     return render(request, 'mainapp/forbidden.html')
 
+
+
 class Students(UserPassesTestMixin, ListView):
     model = models.Student
     template_name = 'mainapp/students.html'
     context_object_name = 'students'
+
+    def test_func(self):
+        return self.request.user.username.startswith('altyn')
+
+    def handle_no_permission(self):
+        return render(
+            self.request,
+            'mainapp/forbidden.html',
+            {'redirect_url': 'forbidden'}
+        )
+
+    def get_login_url(self) -> str:
+        return ('forbidden')
+
+
+class Users(UserPassesTestMixin, ListView):
+    model = User
+    template_name = 'mainapp/users.html'
+    context_object_name = 'users'
 
     def test_func(self):
         return self.request.user.username.startswith('altyn')
@@ -123,13 +161,6 @@ def add_contact_info(request):
     )
 
     return redirect('homepage')
-
-
-
-# def delete_record(request, id):
-#     instance = models.School_info.objects.get(id=id)
-#     instance.delete()
-#     return redirect('homepage')
 
 
 class Contact(ListView):
@@ -191,8 +222,10 @@ class CourseDetailView(DetailView):
 
 
 
-
-
+# def delete_record(request, id):
+#     instance = models.School_info.objects.get(id=id)
+#     instance.delete()
+#     return redirect('homepage')
 
 
 # def update_course(request, id):

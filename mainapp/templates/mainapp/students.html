@@ -12,11 +12,14 @@
           {{ course.course_name }}{% if not forloop.last %}, {% endif %}
         {% endfor %}
       </p>
-      <p class="card-text">Trainers:
+      <p>Email: {{ student.email }}</p>
+      <p>Tel: {{ student.tel }}</p>
+      <p>Address: {{ student.addres }}</p>
+      <!-- <p class="card-text">Trainers:
         {% for trainer in student.trainers.all %}
           {{ trainer.trainer_name }}{% if not forloop.last %}, {% endif %}
         {% endfor %}
-      </p>
+      </p> -->
     </div>
   </div>
 {% endfor %}

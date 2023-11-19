@@ -11,7 +11,7 @@
       <img src="{% static course.course_logo %}" class="card-img-top" alt="{{ course.course_logo }}">
       <div class="card-body">
         <h5 class="card-title">{{ course.course_name }}</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <p class="card-text">In curand</p>
         <a href="course_detail/{{ course.id }}" class="btn btn-primary">Detalii</a>
       </div>
     </div>
@@ -21,13 +21,3 @@
 {% endfor %}
 
 {% endblock %}
-
-
-  <!-- {% for course in courses %}
-  <div class="row">
-    <p>Course name: {{ course.course_name }}</p>
-    <p>Start time: {{ course.start_time }}</p>
-    <p><a href="course_detail/{{ course.id }}">Detalii</a></p>
-    <p></p>
-  </div>
-  {% endfor %} -->

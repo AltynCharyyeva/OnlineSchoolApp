@@ -1,0 +1,15 @@
+{% extends 'mainapp/header.html' %} 
+{% block content %}
+
+<h1>Users</h1>
+
+{% for user in users %}
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title">Username: {{ user.username }}</h5>
+      <p>Email: {{ user.email }}</p>
+    </div>
+  </div>
+{% endfor %}
+
+{% endblock %}

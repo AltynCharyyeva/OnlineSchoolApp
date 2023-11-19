@@ -1,0 +1,39 @@
+{% extends 'mainapp/header.html' %} 
+{% block content %}
+
+<style>
+  .student-details-container {
+    background-color: #343030; 
+    border-radius: 10px; 
+    padding: 20px; 
+    margin: 20px auto; 
+    max-width: 600px; 
+  }
+
+  .student-details-container p {
+    margin-bottom: 0; 
+  }
+</style>
+
+<div class="student-details-container">
+  <div class="container">
+      <div class="row">
+          <div class="col-2">Name: </div>
+        <div class="col-10"><p>{{ student.name }} {{ student.surname }}</p></div>
+      </div>
+      <div class="row">
+          <div class="col-2">Adress: </div>
+          <div class="col-10"><p>{{ student.addres }}</p></div>
+      </div>
+      <div class="row">
+          <div class="col-2">Email: </div>
+          <div class="col-10"><p>{{ student.email}}</p></div>
+      </div>
+      <div class="row">
+          <div class="col-2">Tel: </div>
+          <div class="col-10"><p>{{ student.tel }}</p></div>
+      </div>
+  </div>
+</div>
+
+{% endblock %}
